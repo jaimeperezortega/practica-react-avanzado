@@ -1,3 +1,24 @@
+# PRÁCTICA DE REACT AVANZADO
+
+- Instalar Redux: npm install redux
+
+- Para instalar la extension redux devtools
+
+    - https://extension.remotedev.io/
+    - Añadir como tercer parámetro a la función de create store este comando:          
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+
+    QUEDA LA FUNCIÓN ASÍ:
+    
+    const store = createStore(
+        reducer,
+         preloadedState,
+         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+         );
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
