@@ -6,14 +6,22 @@ import { AdvertPage, AdvertsPage, NewAdvertPage } from '../adverts';
 import { LoginPage, PrivateRoute } from '../auth';
 import { AuthProvider } from '../auth/context';
 import NotFoundPage from './NotFoundPage';
+import { authLogin, authLogout } from '../../store/actions';
 
-function App({ isInitiallyLogged }) {
-  const [isLogged, setIsLogged] = React.useState(isInitiallyLogged);
 
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
+function App({ store}) {
 
-  const authProps = { isLogged, handleLogin, handleLogout };
+  const handleLogin = () => store.dispatch(authLogin());
+  const handleLogout = () => store.dispatch(authLogout());
+  
+
+  const authProps = {
+    isLogged: store.getState().auth,
+    handleLogin, 
+    handleLogout 
+  };
+
+  console.log(authProps);
 
   return (
     <AuthProvider {...authProps}>
@@ -38,12 +46,6 @@ function App({ isInitiallyLogged }) {
   );
 }
 
-App.propTypes = {
-  isInitiallyLogged: T.bool,
-};
 
-App.defaultProps = {
-  isInitiallyLogged: false,
-};
 
 export default App;

@@ -12,9 +12,7 @@ import {authLogin, authLogout} from './store/actions'
 const accessToken = storage.get('auth');
 configureClient({ accessToken });
 
-const store = configureStore({preloadedState: {auth:!!accessToken}}) //Creamos el store llamando a la función configureStore que hemos creado previamente en el index.js de la carpeta store y esta función nos permite pasarle un  objeto de configuración como preloadedState. De esta forma podemos pasar como estado inicial de isLOgged en función de lo que nos devuelva la llamada a la función de arriba (configureClient) e iniciamos el estado de islogged a true o false dependiendo de si tenemos o no token en el localStorage. Si no tuvieramos accesom a esta info, lo más razonable sería inicial,izar el estado a false. En este caso estamos pasando como valor de auth el booleano de accessToken (es decir, si hay accessToken será true y si no será false)
-
-
+ export const store = configureStore({preloadedState: {auth:!!accessToken}}) //Creamos el store llamando a la función configureStore que hemos creado previamente en el index.js de la carpeta store y esta función nos permite pasarle un  objeto de configuración como preloadedState. De esta forma podemos pasar como estado inicial de isLOgged en función de lo que nos devuelva la llamada a la función de arriba (configureClient) e iniciamos el estado de islogged a true o false dependiendo de si tenemos o no token en el localStorage. Si no tuvieramos accesom a esta info, lo más razonable sería inicial,izar el estado a false. En este caso estamos pasando como valor de auth el booleano de accessToken (es decir, si hay accessToken será true y si no será false)
 
 // console.log(store);
 // console.log('Estado inicial con el preloadedState', store.getState())
@@ -24,11 +22,19 @@ const store = configureStore({preloadedState: {auth:!!accessToken}}) //Creamos e
 // console.log('Estado después del dispatch authLogout', store.getState())
 
 
+// Ya podríamos sustituir el estado de isLogged definido en App.js por el estado que tenemos fuardado en el store
+
+//1. Pasamos el store por props a mi componente App
+// 2. En App recibimos por props el componente store
+// 3. los manejadores del evento utilizan el dispatch de login o logout para cambiar el estado 
+// 4. Cambiamos el valor isLogged de las authProps a lo que me devuelva el metodo getState().auth del store
+
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App isInitiallyLogged={!!accessToken} />
+      <App store={store} />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

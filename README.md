@@ -2,7 +2,11 @@
 
 - Instalar Redux: npm install redux
 
-- Para instalar la extension redux devtools
+
+## REDUX DEVTOOLS
+
+### INSTALACIÓN 1:
+
 
     - https://extension.remotedev.io/
     - Añadir como tercer parámetro a la función de create store este comando:          
@@ -15,6 +19,23 @@
          preloadedState,
          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
          );
+
+### INSTALACIÓN 2:
+CON EL PAQUETE REDUX-DEVTOOLS-EXTENSION
+
+    1. INSTALAR: npm install --save-dev redux-devtools-extension
+
+    2.  SEGUIR INSTRUCCIIONES:
+
+    and to use like so:
+
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(reducer, composeWithDevTools(
+  applyMiddleware(...middleware),
+  // other store enhancers if any
+));
 
 
 
