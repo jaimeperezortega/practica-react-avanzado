@@ -5,12 +5,17 @@ import { useAuthContext } from '../context';
 import usePromise from '../../../hooks/usePromise';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {authLogin} from '../../../store/actions'
 
-function LoginPage({ location, history, handleLogin }) {
+function LoginPage({ location, history }) {
   //const { handleLogin } = useAuthContext();
   const { isPending: isLoading, error, execute, resetError } = usePromise();
+  
+  //Usamos useDispatch para obtener el dispatch que activa la accion de handleLogin
+
+  const dispatch = useDispatch();
+  const handleLogin = () => dispatch(authLogin());
 
   const handleSubmit = credentials => {
     execute(login(credentials))
@@ -40,8 +45,10 @@ LoginPage.propTypes = {
   history: T.shape({ replace: T.func.isRequired }).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleLogin: () => dispatch(authLogin())
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   handleLogin: () => dispatch(authLogin())
+// });
 
-export default connect(null,mapDispatchToProps)(LoginPage);
+// export default connect(null,mapDispatchToProps)(LoginPage);
+
+export default LoginPage;

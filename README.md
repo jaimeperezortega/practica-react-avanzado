@@ -38,8 +38,23 @@ const store = createStore(reducer, composeWithDevTools(
 ));
 
 
+## REACT REDUX
 
+Librería que permite conectar los componentes de React con redux: npm install -- save react-redux
 
+Esta librería tiene disponible los siguientes elementos: 
+
+1. El componente </Provider/> que va a ser al que le vamos a pasar el store y lo va a poner en un contexto de React para que todos los componentes que lo necesiten tengan acceso al store. Funciona muy parecido al componente Router de React Router. Hay que ponerlo envolviendo 
+
+2. La función connect() a la que le voy a pasar un primer objeto de configuracón y al resultado de eso le voy a pasar mi componente. Connect es un high order component que crea componentes conectados con el store de redux: export defaault connect(mapStateToProps, mapDispatchToProps)(TodoList). mapStateToProps extrae datos del estado y mapDispatchToProps crea funciones que despachan acciones.
+
+## REACT REDUX HOOKS (ALTERNATIVA A CONNECT)
+
+1. useSelector --> Permite extraer datos de un store de redux, usando un selector (const result = useSelector(selector)). Ssustituye a uusar el connect con el mapStateToProps
+
+2. useDispatch --> devuelve el dispatch
+
+3. useStore
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

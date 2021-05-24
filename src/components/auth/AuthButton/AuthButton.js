@@ -37,8 +37,14 @@ AuthButton.defaultProps = {
 
 const mapStateToProps = state => ({isLogged: getIsLogged(state)});
 
-const mapDispatchToProps = dispatch => ({
-  handleLogout: ()=> dispatch(authLogout())
-});
+// const mapDispatchToProps = dispatch => ({
+//   handleLogout: ()=> dispatch(authLogout())
+// });
+
+//Esto es quivalente al código de arriba. Se puede hacer cuando no se pasa ningún argumento, o el argumento que se pasa es similar. Igualo mapDispatchToProps a un objeto donde asocio la prop que le paso al componente con la acción de redux que despacho
+
+const mapDispatchToProps = {
+  handleLogout: authLogout,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthButton);
