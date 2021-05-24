@@ -7,8 +7,8 @@ import storage from './utils/storage';
 import './index.css';
 import App from './components/app';
 import configureStore from './store';
-import {authLogin, authLogout} from './store/actions'
 import {Provider} from 'react-redux';
+import Root from './Root';
 
 const accessToken = storage.get('auth');
 configureClient({ accessToken });
@@ -33,12 +33,6 @@ configureClient({ accessToken });
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-    </Provider>
-  </React.StrictMode>,
+  <Root/>,
   document.getElementById('root')
 );
