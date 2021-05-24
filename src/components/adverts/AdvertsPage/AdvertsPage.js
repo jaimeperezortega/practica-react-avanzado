@@ -14,10 +14,11 @@ const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = filters => storage.set('filters', filters);
 
 function AdvertsPage() {
-  const { isPending: isLoading, error, execute, data: adverts } = usePromise(
-    []
-  );
+  const { isPending: isLoading, error, execute } = usePromise();
   const [filters, setFilters] = React.useState(getFilters);
+  const [adverts, setAdverts] = React.useState([]);
+  
+
 
   React.useEffect(() => {
     execute(getAdverts());
