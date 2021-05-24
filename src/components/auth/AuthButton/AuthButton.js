@@ -6,6 +6,7 @@ import { ConfirmationButton } from '../../shared';
 import { logout } from '../../../api/auth';
 import {connect} from 'react-redux';
 import { getIsLogged } from '../../../store/selectors';
+import { authLogout } from '../../../store/actions';
 
 const AuthButton = ({ handleLogout, isLogged }) => {
   const handleLogoutConfirm = async () => {
@@ -34,6 +35,10 @@ AuthButton.defaultProps = {
   isLogged: false,
 };
 
-const mapStateToProps = state => ({isLogged: getIsLogged(state)})
+const mapStateToProps = state => ({isLogged: getIsLogged(state)});
 
-export default connect(mapStateToProps)(AuthButton);
+const mapDispatchToProps = dispatch => ({
+  handleLogout: ()=> dispatch(authLogout())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthButton);
