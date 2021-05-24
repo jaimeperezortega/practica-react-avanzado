@@ -9,14 +9,14 @@ import NotFoundPage from './NotFoundPage';
 import { authLogin, authLogout } from '../../store/actions';
 
 
-function App({ store}) {
+function App({}) {
 
-  const handleLogin = () => store.dispatch(authLogin());
-  const handleLogout = () => store.dispatch(authLogout());
+  const handleLogin = () => {};//store.dispatch(authLogin());
+  const handleLogout = () =>{}; //store.dispatch(authLogout());
   
 
   const authProps = {
-    isLogged: store.getState().auth,
+    isLogged: false,
     handleLogin, 
     handleLogout 
   };

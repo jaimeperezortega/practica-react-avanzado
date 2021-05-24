@@ -8,6 +8,7 @@ import './index.css';
 import App from './components/app';
 import configureStore from './store';
 import {authLogin, authLogout} from './store/actions'
+import {Provider} from 'react-redux';
 
 const accessToken = storage.get('auth');
 configureClient({ accessToken });
@@ -27,15 +28,17 @@ configureClient({ accessToken });
 //1. Pasamos el store por props a mi componente App
 // 2. En App recibimos por props el componente store
 // 3. los manejadores del evento utilizan el dispatch de login o logout para cambiar el estado 
-// 4. Cambiamos el valor isLogged de las authProps a lo que me devuelva el metodo getState().auth del store
+// 4. Cambiamos el valor isLogged de las authProps a lo que me devuelva el metodo getState().auth del store 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <Router>
-      <App store={store} />
+      <App />
     </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
