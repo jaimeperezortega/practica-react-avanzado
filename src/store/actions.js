@@ -1,6 +1,6 @@
 
 
-import {AUTH_LOGIN, AUTH_LOGOUT} from './types';
+import {ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types';
 
 
 export const authLogin = () => {
@@ -17,4 +17,11 @@ export const authLogout = () => {
 };
 
 
-
+export const advertsLoaded = (adverts) =>{
+    return {
+        type: ADVERTS_LOADED,
+        payload: {
+            adverts, 
+        }
+    }
+}

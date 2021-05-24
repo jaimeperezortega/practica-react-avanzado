@@ -1,9 +1,9 @@
 
-import {AUTH_LOGIN, AUTH_LOGOUT} from './types'
+import {ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types'
 
 const initialState = {
     auth: false,
-
+    adverts: [],
 }
 
 
@@ -16,6 +16,9 @@ function reducer(state = initialState, action) {
 
         case AUTH_LOGOUT:
             return {...state, auth:false};
+
+        case ADVERTS_LOADED:
+            return {...state, adverts: action.payload.adverts};
             
         default:
             return state;
