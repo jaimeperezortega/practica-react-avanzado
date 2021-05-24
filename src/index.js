@@ -13,7 +13,7 @@ import Root from './Root';
 const accessToken = storage.get('auth');
 configureClient({ accessToken });
 
- export const store = configureStore({preloadedState: {auth:!!accessToken}}) //Creamos el store llamando a la función configureStore que hemos creado previamente en el index.js de la carpeta store y esta función nos permite pasarle un  objeto de configuración como preloadedState. De esta forma podemos pasar como estado inicial de isLOgged en función de lo que nos devuelva la llamada a la función de arriba (configureClient) e iniciamos el estado de islogged a true o false dependiendo de si tenemos o no token en el localStorage. Si no tuvieramos accesom a esta info, lo más razonable sería inicial,izar el estado a false. En este caso estamos pasando como valor de auth el booleano de accessToken (es decir, si hay accessToken será true y si no será false)
+ export const store = configureStore({preloadedState: {auth:!!accessToken, adverts:[]}}) //Creamos el store llamando a la función configureStore que hemos creado previamente en el index.js de la carpeta store y esta función nos permite pasarle un  objeto de configuración como preloadedState. De esta forma podemos pasar como estado inicial de isLOgged en función de lo que nos devuelva la llamada a la función de arriba (configureClient) e iniciamos el estado de islogged a true o false dependiendo de si tenemos o no token en el localStorage. Si no tuvieramos accesom a esta info, lo más razonable sería inicial,izar el estado a false. En este caso estamos pasando como valor de auth el booleano de accessToken (es decir, si hay accessToken será true y si no será false)
 
 // console.log(store);
 // console.log('Estado inicial con el preloadedState', store.getState())

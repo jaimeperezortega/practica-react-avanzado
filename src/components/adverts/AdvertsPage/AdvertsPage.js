@@ -22,10 +22,10 @@ function AdvertsPage() {
   const [filters, setFilters] = React.useState(getFilters);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [adverts, setAdverts] = React.useState([]);
+  //const [adverts, setAdverts] = React.useState([]);
   
-  //const dispatch = useDispatch();
-  //const adverts = useSelector(getAdvertsSelector);
+  const dispatch = useDispatch();
+  const adverts = useSelector(getAdvertsSelector);
 
 
   const executeApiCall = async function() {
@@ -35,8 +35,8 @@ function AdvertsPage() {
       const data = await getAdverts();
       setError(null);
       setIsLoading(true);
-      setAdverts(data);
-      //dispatch(advertsLoaded(data));
+      //setAdverts(data);
+      dispatch(advertsLoaded(data));
     } catch (error) {
       setError(error);
       setIsLoading(true);
@@ -45,8 +45,7 @@ function AdvertsPage() {
   }
 
   React.useEffect(() => {
-    //execute(getAdverts());
-  
+    
     executeApiCall();
    
   }, []);
