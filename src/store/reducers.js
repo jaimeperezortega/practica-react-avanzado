@@ -1,5 +1,6 @@
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types'
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types';
+import {combineReducers} from 'redux';
 
 const initialState = {
     auth: false,
@@ -31,7 +32,7 @@ const initialState = {
 
 // }
 
-function auth(state, action){
+export function auth(state= initialState, action){
     switch (action.type) {
         case AUTH_LOGIN:
             return  true;
@@ -46,7 +47,7 @@ function auth(state, action){
 
 }
 
-function adverts(state, action) {
+export function adverts(state=initialState, action) {
     switch (action.type) {
 
         case ADVERTS_LOADED:
@@ -64,11 +65,16 @@ function adverts(state, action) {
 
 
 
-function reducer(state= initialState, action) {
-    return {
-        auth: auth(state.auth, action) ,
-        adverts: adverts(state.adverts, action),
-    }
-}
+// function reducerBeforeCombineReducer(state= initialState, action) {
+//     return {
+//         auth: auth(state.auth, action) ,
+//         adverts: adverts(state.adverts, action),
+//     }
+// }
 
-export default reducer;
+const reducer = combineReducers({
+    auth,
+    adverts,
+})
+
+//export default reducer;
