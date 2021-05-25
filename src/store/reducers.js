@@ -1,5 +1,5 @@
 
-import {ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types'
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types'
 
 const initialState = {
     auth: false,
@@ -19,6 +19,10 @@ function reducer(state = initialState, action) {
 
         case ADVERTS_LOADED:
             return {...state, adverts: action.payload.adverts};
+        
+        case ADVERTS_CREATED:
+            return {...state, adverts: [...state.adverts, action.payload.advert]}
+            //return {...state, adverts: state.adverts.concat(action.payload.advert)}
             
         default:
             return state;

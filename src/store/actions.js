@@ -1,6 +1,6 @@
 
 
-import {ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types';
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types';
 
 
 export const authLogin = () => {
@@ -22,6 +22,16 @@ export const advertsLoaded = (adverts) =>{
         type: ADVERTS_LOADED,
         payload: {
             adverts, 
+        }
+    }
+}
+
+
+export const advertCreated = advert => {
+    return{
+        type: ADVERTS_CREATED,
+        payload: {
+            advert,
         }
     }
 }
