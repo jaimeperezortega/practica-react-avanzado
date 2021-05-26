@@ -32,7 +32,7 @@ const initialState = {
 
 // }
 
-export function auth(state= initialState, action){
+export function auth(state= initialState.auth, action){
     switch (action.type) {
         case AUTH_LOGIN:
             return  true;
@@ -47,7 +47,7 @@ export function auth(state= initialState, action){
 
 }
 
-export function adverts(state=initialState, action) {
+export function adverts(state=initialState.adverts, action) {
     switch (action.type) {
 
         case ADVERTS_LOADED:
