@@ -2,6 +2,8 @@
 
 import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
 
+import {login} from '../api/auth';
+
 
 // export const authLogin = () => {
 //     return {
@@ -31,6 +33,26 @@ export const authLoginFailure = error => {
         error:true
     }    
 };
+
+export const loginAction = (credentials, history, location) =>{ //Esta es la acción que voy a meter en el middleware de thunk. Se trata de una función que devuelve otra función que tiene acceso a los dispatch originales y puede ser asíncrona
+
+    return async function(dispatch, getState){
+        dispatch(authLoginRequest());
+        try {
+          await login(credentials);
+          dispatch(authLoginSuccess());
+    
+          //Redirect
+          const { from } = location.state || { from: { pathname: '/' } };
+          history.replace(from);
+          
+        } catch (error) {
+          dispatch(authLoginFailure(error))
+        }
+        
+    }
+
+  }
 
 
 export const authLogout = () => {

@@ -3,10 +3,9 @@ import T from 'prop-types';
 
 import { useAuthContext } from '../context';
 import usePromise from '../../../hooks/usePromise';
-import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
 import {useDispatch, useSelector} from 'react-redux';
-import {authLoginSuccess, authLoginRequest, authLoginFailure, resetError} from '../../../store/actions';
+import { resetError, loginAction} from '../../../store/actions';
 import {getUi} from '../../../store/selectors'
 
 function LoginPage({ location, history }) {
@@ -30,22 +29,10 @@ function LoginPage({ location, history }) {
   // };
 
   const handleSubmit = async  credentials =>{
-    dispatch(authLoginRequest());
 
-    try {
-      await login(credentials);
-      dispatch(authLoginSuccess());
+    dispatch(loginAction(credentials, history, location))
 
-      //Redirect
-      const { from } = location.state || { from: { pathname: '/' } };
-      history.replace(from);
-      
-    } catch (error) {
-      dispatch(authLoginFailure(error))
-    }
-    
-
-  }
+  };
 
   return (
     <div>
