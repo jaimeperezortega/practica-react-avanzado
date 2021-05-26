@@ -55,6 +55,43 @@ Esta librería tiene disponible los siguientes elementos:
 2. useDispatch --> devuelve el dispatch
 
 3. useStore
+
+
+
+
+## REACT MIDDLEWARES 
+
+Sin middlewares, podemos manejar las acciones que sean objetos. Los middlewares, nos van a permitir manejar otro tipo de acciones. Voy a poder despachar promesas, funciones... El middleware más conocido es redux thunk
+
+Nos van a ayudar a traernos la lógica de una llamada a un login, una api, etc a redux y dejar componentes "tontos". Para meter acciones asíncronas, podemos meter una capa extra (middleware) que es quien va a manejar ese tipo de acciones asíncronas. Cuando hacemos una llamada a una APi identificamos varios momentos en la vida de esa llamada:
+
+1. Momento de iniciar la petición {type: FETCH_REQUEST} // isLoading:true, error:null
+2. Momento en que la petición finaliza con ñexito {type: FETCH_SUCCESS, result: [...]} // isLoading:false, error:null
+3. Momento en que la petición falla y hay que gestionarl el error {type: FETCH_FAILURE, error: 'Error fetching data'} // isLoading: false, error:error
+
+
+### REDUX thunk
+
+es una capa que va a rodear a nuestro dispatch de tal manera que cuando hagamos un dispatch contra redux, no estaremos llamando al dispatch original, sino que por debajo mi acción va a pasar por un bloque de código que va a interceptar esa acción. El dispatch original solo puede despachar acciones síncronas.
+
+¿Cómo se despachan acciones en un componente?
+
+1. (Lo que estábamos haciendo hasta ahora) EMITIMOS ACCIONES DIRECTAMENTE EN EL COMPONENTE
+2. REDUX THINK MIDDLEWARE ( Es la opción más limpia)
+
+    - Action creator puede devolver una función (thunk)
+    - La funcion es ejecutada por el middleware
+    - El thunk tiene acceso al estado
+
+Pasos para poder utilizarlo:
+
+1. Importar redux-middleware (import {applyMiddleware} from 'redux')
+2- Configurar el store para que admita middleware. En composewithDevTools pasar como argumento applyMiddleware e indicar todos los middlewares que vamos a usar
+3- Instalamos thunk middleware
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

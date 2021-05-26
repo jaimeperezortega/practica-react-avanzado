@@ -33,7 +33,7 @@ function LoginPage({ location, history }) {
     dispatch(authLoginRequest());
 
     try {
-      await execute(login(credentials));
+      await login(credentials);
       dispatch(authLoginSuccess());
 
       //Redirect
