@@ -5,12 +5,15 @@ import { useAuthContext } from '../context';
 import usePromise from '../../../hooks/usePromise';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
-import {useDispatch} from 'react-redux';
-import {authLoginSuccess, authLoginRequest, authLoginFailure} from '../../../store/actions'
+import {useDispatch, useSelector} from 'react-redux';
+import {authLoginSuccess, authLoginRequest, authLoginFailure, resetError} from '../../../store/actions';
+import {getUi} from '../../../store/selectors'
 
 function LoginPage({ location, history }) {
   //const { handleLogin } = useAuthContext();
-  const {execute, isPending: isLoading, error, resetError } = usePromise();
+  const {execute} = usePromise();
+
+  const {loading: isLoading, error} = useSelector(getUi)
   
   //Usamos useDispatch para obtener el dispatch que activa la accion de handleLogin
 
@@ -27,12 +30,14 @@ function LoginPage({ location, history }) {
   // };
 
   const handleSubmit = async  credentials =>{
-    const { from } = location.state || { from: { pathname: '/' } };
     dispatch(authLoginRequest());
 
     try {
       await execute(login(credentials));
       dispatch(authLoginSuccess());
+
+      //Redirect
+      const { from } = location.state || { from: { pathname: '/' } };
       history.replace(from);
       
     } catch (error) {
@@ -47,7 +52,7 @@ function LoginPage({ location, history }) {
       <LoginForm onSubmit={handleSubmit} />
       {isLoading && <p>...login in nodepop</p>}
       {error && (
-        <div onClick={resetError} style={{ color: 'red' }}>
+        <div onClick={()=> dispatch(resetError())} style={{ color: 'red' }}>
           {error.message}
         </div>
       )}

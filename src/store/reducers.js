@@ -1,5 +1,5 @@
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGIN_FAILURE, AUTH_LOGOUT} from './types';
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGIN_FAILURE, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
 import {combineReducers} from 'redux';
 
 const initialState = {
@@ -80,6 +80,9 @@ export function ui (state= initialState.ui, action){
 
             case AUTH_LOGIN_SUCCESS:
             return {...state, loading:false, error:null};
+
+            case UI_RESET_ERROR:
+            return {...state, error:null};
             
             default:
             return state;

@@ -1,6 +1,6 @@
 
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT} from './types';
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
 
 
 // export const authLogin = () => {
@@ -55,5 +55,11 @@ export const advertCreated = advert => {
         payload: advert,
               
     
+    }
+}
+
+export const resetError = () => {
+    return {
+        type: UI_RESET_ERROR,
     }
 }
