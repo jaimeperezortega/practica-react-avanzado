@@ -6,25 +6,41 @@ import usePromise from '../../../hooks/usePromise';
 import { login } from '../../../api/auth';
 import LoginForm from './LoginForm';
 import {useDispatch} from 'react-redux';
-import {authLogin} from '../../../store/actions'
+import {authLoginSuccess, authLoginRequest, authLoginFailure} from '../../../store/actions'
 
 function LoginPage({ location, history }) {
   //const { handleLogin } = useAuthContext();
-  const { isPending: isLoading, error, execute, resetError } = usePromise();
+  const {execute, isPending: isLoading, error, resetError } = usePromise();
   
   //Usamos useDispatch para obtener el dispatch que activa la accion de handleLogin
 
   const dispatch = useDispatch();
-  const handleLogin = () => dispatch(authLogin());
+  //const handleLogin = () => dispatch(authLoginSuccess());
 
-  const handleSubmit = credentials => {
-    execute(login(credentials))
-      .then(handleLogin)
-      .then(() => {
-        const { from } = location.state || { from: { pathname: '/' } };
-        history.replace(from);
-      });
-  };
+  // const handleSubmit = credentials => {
+  //   execute(login(credentials))
+  //     .then(handleLogin)
+  //     .then(() => {
+  //       const { from } = location.state || { from: { pathname: '/' } };
+  //       history.replace(from);
+  //     });
+  // };
+
+  const handleSubmit = async  credentials =>{
+    const { from } = location.state || { from: { pathname: '/' } };
+    dispatch(authLoginRequest());
+
+    try {
+      await execute(login(credentials));
+      dispatch(authLoginSuccess());
+      history.replace(from);
+      
+    } catch (error) {
+      dispatch(authLoginFailure(error))
+    }
+    
+
+  }
 
   return (
     <div>

@@ -1,11 +1,34 @@
 
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN, AUTH_LOGOUT} from './types';
+import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT} from './types';
 
 
-export const authLogin = () => {
+// export const authLogin = () => {
+//     return {
+//         type: AUTH_LOGIN,
+//     }    
+// };
+
+//Dividimos la acción de AUTH_LOGIN en 3 acciones más pequeñas
+
+export const authLoginRequest = () => {
     return {
-        type: AUTH_LOGIN,
+        type: AUTH_LOGIN_REQUEST,
+        
+    }    
+};
+
+export const authLoginSuccess = () => {
+    return {
+        type: AUTH_LOGIN_SUCCESS,
+    }    
+};
+
+export const authLoginFailure = error => {
+    return {
+        type: AUTH_LOGIN_FAILURE,
+        payload: error,
+        error:true
     }    
 };
 
