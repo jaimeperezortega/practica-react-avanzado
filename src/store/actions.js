@@ -20,9 +20,8 @@ export const authLogout = () => {
 export const advertsLoaded = (adverts) =>{
     return {
         type: ADVERTS_LOADED,
-        payload: {
-            adverts, 
-        }
+        payload: adverts,
+        
     }
 }
 
@@ -30,8 +29,8 @@ export const advertsLoaded = (adverts) =>{
 export const advertCreated = advert => {
     return{
         type: ADVERTS_CREATED,
-        payload: {
-            advert,
-        }
+        payload: advert,
+              
+    
     }
 }

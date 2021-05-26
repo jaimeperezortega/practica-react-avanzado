@@ -5,6 +5,7 @@ import {combineReducers} from 'redux';
 const initialState = {
     auth: false,
     adverts: [],
+    ui:{},
 }
 
 
@@ -51,16 +52,20 @@ export function adverts(state=initialState.adverts, action) {
     switch (action.type) {
 
         case ADVERTS_LOADED:
-            return action.payload.adverts;
+            return action.payload;
         
         case ADVERTS_CREATED:
-            return [...state, action.payload.advert];
+            return [...state, action.payload];
             
         default:
             return state;
             
     }
 
+}
+
+export function ui (state= initialState.ui, action){
+    return state;
 }
 
 
