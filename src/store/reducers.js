@@ -4,12 +4,18 @@ import {combineReducers} from 'redux';
 
 const initialState = {
     auth: false,
-    adverts: [],
+    adverts: {
+        loaded: false,
+        data: [],
+            },
     ui:{
         loading: false,
         error: null,
     },
-    tags: [],
+    tags: {
+        loaded:false,
+        data:[],
+    }
 }
 
 
@@ -56,10 +62,14 @@ export function adverts(state=initialState.adverts, action) {
     switch (action.type) {
 
         case ADVERTS_LOADED_SUCCESS:
-            return action.payload;
+            return {
+                ...state,
+                data: action.payload,
+                loaded:true,
+            };
         
         case ADVERTS_CREATED:
-            return [...state, action.payload];
+            return {...state, data: [...state.data, action.payload]};
             
         default:
             return state;
@@ -83,6 +93,7 @@ export function ui (state= initialState.ui, action){
 
             case AUTH_LOGIN_SUCCESS:
             case ADVERTS_LOADED_SUCCESS:
+            case AUTH_LOGOUT:
             return {...state, loading:false, error:null};
 
             case UI_RESET_ERROR:
@@ -99,7 +110,10 @@ export function tags(state=initialState.tags, action) {
     switch (action.type) {
 
         case TAGS_LOADED_SUCCESS:
-            return action.payload;
+            return {
+                data: action.payload,
+                loaded: true,
+                };
             
         default:
             return state;
