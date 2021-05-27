@@ -1,5 +1,5 @@
 
-import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_SUCCESS} from './types';
 import {combineReducers} from 'redux';
 
 const initialState = {
@@ -68,8 +68,8 @@ export function adverts(state=initialState.adverts, action) {
                 loaded:true,
             };
         
-        case ADVERTS_CREATED:
-            return {...state, data: [...state.data, action.payload]};
+        case ADVERTS_CREATED_SUCCESS:
+            return {...state, loaded:false, data: [...state.data, action.payload]};
             
         default:
             return state;
@@ -89,11 +89,13 @@ export function ui (state= initialState.ui, action){
             case AUTH_LOGIN_REQUEST:
             case ADVERTS_LOADED_REQUEST:
             case TAGS_LOADED_REQUEST:
+            case ADVERTS_CREATED_REQUEST:
             return {...state, loading:true, error:null};
 
             case AUTH_LOGIN_SUCCESS:
             case ADVERTS_LOADED_SUCCESS:
             case AUTH_LOGOUT:
+            case ADVERTS_CREATED_SUCCESS:
             return {...state, loading:false, error:null};
 
             case UI_RESET_ERROR:

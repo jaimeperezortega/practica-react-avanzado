@@ -1,7 +1,7 @@
 
 
 import { getAdvertsLoaded, getTagsLoaded } from './selectors';
-import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE, ADVERTS_CREATED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_FAILURE} from './types';
 
 //import {login} from '../api/auth';
 
@@ -145,12 +145,51 @@ export const tagsLoadedAction = () =>{
     }
 }
 
-export const advertCreated = advert => {
-    return{
-        type: ADVERTS_CREATED,
-        payload: advert,
+// export const advertCreated = advert => {
+//     return{
+//         type: ADVERTS_CREATED,
+//         payload: advert,
               
     
+//     }
+// }
+
+export const advertCreatedSuccess = (advert) =>{
+    return {
+        type: ADVERTS_CREATED_SUCCESS,
+        payload: advert,
+    }
+        
+}
+
+export const advertCreatedRequest = () =>{
+    return {
+        type: ADVERTS_CREATED_REQUEST,
+        
+    }
+        
+}
+
+export const advertCreatedFailure = (error) =>{
+    return {
+        type: ADVERTS_CREATED_FAILURE,
+        payload: error,
+        error: true,
+    }
+        
+}
+
+export const advertCreatedAction = advert =>{
+    return async function (dispatch, getState, {api}){
+        
+        dispatch(advertCreatedRequest())
+        try {
+            const advertCreated = await api.adverts.createAdvert(advert);
+            dispatch(advertCreatedSuccess(advertCreated));
+            return advertCreated;
+        } catch (error) {
+            dispatch(advertCreatedFailure(error))
+        }
     }
 }
 
