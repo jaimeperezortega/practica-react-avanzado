@@ -6,9 +6,13 @@
 
  import { composeWithDevTools } from 'redux-devtools-extension';
  import thunk from 'redux-thunk';
+import * as auth from '../api/auth'
+import * as adverts from '../api/adverts'
 
+const api = {auth, adverts}
+console.log(api)
 
-const middleware = [thunk]; // El orden en que defina los middlewares en los arrays es muy importante. La primera capa suele ser el thunk
+const middleware = [thunk.withExtraArgument({api})]; // El orden en que defina los middlewares en los arrays es muy importante. La primera capa suele ser el thunk
 
  const configureStore = ({preloadedState}) => {
     const store = createStore(combineReducers

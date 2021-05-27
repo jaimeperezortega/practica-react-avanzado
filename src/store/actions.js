@@ -2,7 +2,7 @@
 
 import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
 
-import {login} from '../api/auth';
+//import {login} from '../api/auth';
 
 
 // export const authLogin = () => {
@@ -36,10 +36,10 @@ export const authLoginFailure = error => {
 
 export const loginAction = (credentials, history, location) =>{ //Esta es la acción que voy a meter en el middleware de thunk. Se trata de una función que devuelve otra función que tiene acceso a los dispatch originales y puede ser asíncrona
 
-    return async function(dispatch, getState){
+    return async function(dispatch, getState, {api}){// El middleware de thunk permite pasar como tercer argumento en este caso el objeto api para que yo no tenga que importar el método login desde api/auth ya que HAY QUE INTENTAR INYECTAR EL MAYOR NÚMERO DE COSAS A TRAVÉS DE LOS ARGUMENTOS DE LAS FUNCIONES Y NO HACIENDO IMPORTS
         dispatch(authLoginRequest());
         try {
-          await login(credentials);
+          await api.authlogin(credentials);
           dispatch(authLoginSuccess());
     
           //Redirect

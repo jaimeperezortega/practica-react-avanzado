@@ -28,8 +28,8 @@ function LoginPage({ location, history }) {
   //     });
   // };
 
-  const handleSubmit = async  credentials =>{
-
+  const handleSubmit = credentials =>{
+ 
     dispatch(loginAction(credentials, history, location))
 
   };
