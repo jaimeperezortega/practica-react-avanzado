@@ -1,6 +1,6 @@
 
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST} from './types';
 
 //import {login} from '../api/auth';
 
@@ -63,14 +63,42 @@ export const authLogout = () => {
 };
 
 
-export const advertsLoaded = (adverts) =>{
+export const advertsLoadedSuccess = (adverts) =>{
     return {
-        type: ADVERTS_LOADED,
+        type: ADVERTS_LOADED_SUCCESS,
         payload: adverts,
-        
     }
+        
 }
 
+export const advertsLoadedRequest = () =>{
+    return {
+        type: ADVERTS_LOADED_REQUEST,
+        
+    }
+        
+}
+
+export const advertsLoadedFailure = (error) =>{
+    return {
+        type: ADVERTS_LOADED_FAILURE,
+        payload: error,
+        error: true,
+    }
+        
+}
+
+export const advertsLoadedAction = () =>{
+    return async function (dispatch, getState, {api}){
+        dispatch(advertsLoadedRequest())
+        try {
+            const adverts = await api.adverts.getAdverts();
+            dispatch(advertsLoadedSuccess(adverts))
+        } catch (error) {
+            dispatch(advertsLoadedFailure(error))
+        }
+    }
+}
 
 export const advertCreated = advert => {
     return{

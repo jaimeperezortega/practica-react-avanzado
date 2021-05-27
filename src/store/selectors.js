@@ -12,3 +12,7 @@ export const getAdvertsSelector = state => state.adverts.sort((a1,a2)=> {
 
 
 export const getUi = state => state.ui;
+
+export const getIsLoading = state => state.ui.loading;
+
+export const getError = state => state.ui.error;

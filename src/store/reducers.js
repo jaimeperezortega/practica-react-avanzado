@@ -1,5 +1,5 @@
 
-import {ADVERTS_CREATED, ADVERTS_LOADED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGIN_FAILURE, AUTH_LOGOUT, UI_RESET_ERROR} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS} from './types';
 import {combineReducers} from 'redux';
 
 const initialState = {
@@ -54,7 +54,7 @@ export function auth(state= initialState.auth, action){
 export function adverts(state=initialState.adverts, action) {
     switch (action.type) {
 
-        case ADVERTS_LOADED:
+        case ADVERTS_LOADED_SUCCESS:
             return action.payload;
         
         case ADVERTS_CREATED:
@@ -76,9 +76,11 @@ export function ui (state= initialState.ui, action){
         } // Con este if manejamos todos los errores, vengan de auth o de la obtención de adverts porque detecta que trae un error a través de action.error
         switch (action.type) {
             case AUTH_LOGIN_REQUEST:
+            case ADVERTS_LOADED_REQUEST:
             return {...state, loading:true, error:null};
 
             case AUTH_LOGIN_SUCCESS:
+            case ADVERTS_LOADED_SUCCESS:
             return {...state, loading:false, error:null};
 
             case UI_RESET_ERROR:
