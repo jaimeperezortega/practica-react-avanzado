@@ -1,5 +1,6 @@
 
 
+import { getAdvertsLoaded } from './selectors';
 import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST} from './types';
 
 //import {login} from '../api/auth';
@@ -90,6 +91,10 @@ export const advertsLoadedFailure = (error) =>{
 
 export const advertsLoadedAction = () =>{
     return async function (dispatch, getState, {api}){
+        const advertsAlreadyLoaded = getAdvertsLoaded(getState());
+        if (advertsAlreadyLoaded) {
+            return // si los adverts ya están cargados en el store de redux, no llamar a la API
+        }
         dispatch(advertsLoadedRequest())
         try {
             const adverts = await api.adverts.getAdverts();
