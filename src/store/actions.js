@@ -38,8 +38,9 @@ export const loginAction = (credentials, history, location) =>{ //Esta es la acc
 
     return async function(dispatch, getState, {api}){// El middleware de thunk permite pasar como tercer argumento en este caso el objeto api para que yo no tenga que importar el método login desde api/auth ya que HAY QUE INTENTAR INYECTAR EL MAYOR NÚMERO DE COSAS A TRAVÉS DE LOS ARGUMENTOS DE LAS FUNCIONES Y NO HACIENDO IMPORTS
         dispatch(authLoginRequest());
+        
         try {
-          await api.authlogin(credentials);
+          await api.auth.login(credentials);
           dispatch(authLoginSuccess());
     
           //Redirect
