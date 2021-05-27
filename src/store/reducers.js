@@ -1,5 +1,5 @@
 
-import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS} from './types';
 import {combineReducers} from 'redux';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
         loading: false,
         error: null,
     },
+    tags: [],
 }
 
 
@@ -77,6 +78,7 @@ export function ui (state= initialState.ui, action){
         switch (action.type) {
             case AUTH_LOGIN_REQUEST:
             case ADVERTS_LOADED_REQUEST:
+            case TAGS_LOADED_REQUEST:
             return {...state, loading:true, error:null};
 
             case AUTH_LOGIN_SUCCESS:
@@ -91,6 +93,19 @@ export function ui (state= initialState.ui, action){
     }
 
     
+}
+
+export function tags(state=initialState.tags, action) {
+    switch (action.type) {
+
+        case TAGS_LOADED_SUCCESS:
+            return action.payload;
+            
+        default:
+            return state;
+            
+    }
+
 }
 
 

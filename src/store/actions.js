@@ -1,7 +1,7 @@
 
 
-import { getAdvertsLoaded } from './selectors';
-import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST} from './types';
+import { getAdvertsLoaded, getTagsLoaded } from './selectors';
+import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE} from './types';
 
 //import {login} from '../api/auth';
 
@@ -101,6 +101,46 @@ export const advertsLoadedAction = () =>{
             dispatch(advertsLoadedSuccess(adverts))
         } catch (error) {
             dispatch(advertsLoadedFailure(error))
+        }
+    }
+}
+
+export const tagsLoadedRequest = () =>{
+    return {
+        type: TAGS_LOADED_REQUEST,
+        
+    }
+}
+
+export const tagsLoadedSuccess = (tags) =>{
+    return{
+        type:TAGS_LOADED_SUCCESS,
+        payload: tags
+    }
+};
+
+export const tagsLoadedFailure = error =>{
+    return{
+        type: TAGS_LOADED_FAILURE,
+        payload: error,
+        error:true,
+    }
+}
+
+
+
+export const tagsLoadedAction = () =>{
+    return async function (dispatch, getState, {api}){
+        const tagsAlreadyLoaded = getTagsLoaded(getState());
+        if (tagsAlreadyLoaded) {
+            return // si los tags ya están cargados en el store de redux, no llamar a la API
+        }
+        dispatch(tagsLoadedRequest())
+        try {
+            const tags = await api.adverts.getTags();
+            dispatch(tagsLoadedSuccess(tags))
+        } catch (error) {
+            dispatch(tagsLoadedFailure(error))
         }
     }
 }

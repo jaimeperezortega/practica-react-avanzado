@@ -17,3 +17,7 @@ export const getUi = state => state.ui;
 export const getIsLoading = state => state.ui.loading;
 
 export const getError = state => state.ui.error;
+
+export const getTagsSelector = state => state.tags;
+
+export const getTagsLoaded = state => !!state.tags.length;
