@@ -1,7 +1,7 @@
 
 
 import { getAdvertsLoaded, getTagsLoaded } from './selectors';
-import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE, ADVERTS_CREATED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_FAILURE} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_FAILURE, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_REQUEST, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE, ADVERTS_CREATED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_FAILURE, DELETE_ADVERT_SUCCESS, DELETE_ADVERT_REQUEST, DELETE_ADVERT_FAILURE} from './types';
 
 //import {login} from '../api/auth';
 
@@ -189,6 +189,45 @@ export const advertCreatedAction = advert =>{
             return advertCreated;
         } catch (error) {
             dispatch(advertCreatedFailure(error))
+        }
+    }
+}
+
+export const deleteAdvertSuccess = (advertId) =>{
+    return {
+        type: DELETE_ADVERT_SUCCESS,
+        payload: advertId,
+    }
+        
+}
+
+export const deleteAdvertRequest = () =>{
+    return {
+        type: DELETE_ADVERT_REQUEST,
+        
+    }
+        
+}
+
+export const deleteAdvertFailure = (error) =>{
+    return {
+        type: DELETE_ADVERT_FAILURE,
+        payload: error,
+        error: true,
+    }
+        
+}
+
+export const deleteAdvertAction = advertId =>{
+    return async function (dispatch, getState, {api}){
+        
+        dispatch(deleteAdvertRequest())
+        try {
+            const advertDeleted = await api.adverts.deleteAdvert(advertId);
+            dispatch(deleteAdvertSuccess(advertDeleted));
+            return advertDeleted
+        } catch (error) {
+            dispatch(deleteAdvertFailure(error))
         }
     }
 }

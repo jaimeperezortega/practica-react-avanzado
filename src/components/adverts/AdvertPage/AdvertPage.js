@@ -5,6 +5,8 @@ import Layout from '../../layout';
 import AdvertDetail from './AdvertDetail';
 import { getAdvert, deleteAdvert } from '../../../api/adverts';
 import usePromise from '../../../hooks/usePromise';
+import { useDispatch } from 'react-redux';
+import { deleteAdvertAction } from '../../../store/actions';
 
 function AdvertPage() {
   const { advertId } = useParams();
@@ -13,12 +15,14 @@ function AdvertPage() {
     null
   );
 
+  const dispatch= useDispatch();
+
   React.useEffect(() => {
     execute(getAdvert(advertId));
   }, [advertId]);
 
   const handleDelete = () => {
-    execute(deleteAdvert(advertId)).then(() => history.push('/'));
+    dispatch(deleteAdvertAction(advertId)).then(() => history.push('/'));
   };
 
   if (error?.statusCode === 401) {

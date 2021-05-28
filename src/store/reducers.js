@@ -1,5 +1,5 @@
 
-import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_SUCCESS} from './types';
+import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_SUCCESS, DELETE_ADVERT_SUCCESS} from './types';
 import {combineReducers} from 'redux';
 
 const initialState = {
@@ -70,6 +70,12 @@ export function adverts(state=initialState.adverts, action) {
         
         case ADVERTS_CREATED_SUCCESS:
             return {...state, loaded:false, data: [...state.data, action.payload]};
+        
+        case DELETE_ADVERT_SUCCESS:
+            const id= action.payload;
+            const arrayafterRemoval = state.data.filter(advert => advert.id != id )
+            return {...state, loaded:false, data: [...state.data, arrayafterRemoval]};
+            
             
         default:
             return state;
