@@ -4,8 +4,11 @@ import T from 'prop-types';
 import { ConfirmationButton } from '../../shared';
 import placeholder from '../../../assets/images/placeholder.png';
 import { advert } from '../propTypes';
+import {connect} from 'react-redux';
+import { getAdvertDetail, getUi } from '../../../store/selectors';
 
-function AdvertDetail({ name, sale, price, tags, photo, onDelete }) {
+function AdvertDetail({ name, sale, price, tags, photo, onDelete, id}) {
+
   return (
     <div>
       <p>{name}</p>
@@ -36,4 +39,12 @@ AdvertDetail.defaultProps = {
   photo: null,
 };
 
-export default AdvertDetail;
+const mapStateToProps = (state, ownProps) =>{ // con esto consigo sacar el advert, el error y el isLoading
+  
+ 
+  return {
+  advert: getAdvertDetail(state, ownProps.id),
+  ...getUi(state)
+  }
+};
+export default connect(mapStateToProps)(AdvertDetail);

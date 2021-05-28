@@ -21,3 +21,5 @@ export const getError = state => state.ui.error;
 export const getTagsSelector = state => state.tags.data;
 
 export const getTagsLoaded = state => state.tags.loaded;
+
+export const getAdvertDetail = (state, advertId) => state.adverts.data.find(advert => advert.id === advertId); // Para obtener las propiedades de un advert específico (por ejemplo para pintarlo en el advertDetail)

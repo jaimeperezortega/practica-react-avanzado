@@ -1,16 +1,20 @@
 import React from 'react';
 import T from 'prop-types';
 import { Link } from 'react-router-dom';
+import placeholder from '../../../assets/images/placeholder.png';
 
 import { advert } from '../propTypes';
 
-function Advert({ name, sale, price, tags }) {
+function Advert({ name, sale, price, tags, photo }) {
+  console.log(photo);
+
   return (
     <div>
       <p>{name}</p>
       <p>{sale ? 'Sell' : 'Buy'}</p>
       <p>{tags.join(', ')}</p>
       <p>{price}</p>
+     
     </div>
   );
 }
