@@ -225,7 +225,7 @@ export const deleteAdvertAction = advertId =>{
         try {
             const advertDeleted = await api.adverts.deleteAdvert(advertId);
             dispatch(deleteAdvertSuccess(advertDeleted));
-            return advertDeleted
+            
         } catch (error) {
             dispatch(deleteAdvertFailure(error))
         }

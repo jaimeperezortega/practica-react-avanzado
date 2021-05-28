@@ -73,8 +73,8 @@ export function adverts(state=initialState.adverts, action) {
         
         case DELETE_ADVERT_SUCCESS:
             const id= action.payload;
-            const arrayafterRemoval = state.data.filter(advert => advert.id != id )
-            return {...state, loaded:false, data: [...state.data, arrayafterRemoval]};
+            const arrayAfterRemoval = state.data.filter(advert => advert.id != id )
+            return {...state, loaded:false, data: arrayAfterRemoval};
             
             
         default:
