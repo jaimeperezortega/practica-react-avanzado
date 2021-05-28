@@ -6,7 +6,6 @@ import placeholder from '../../../assets/images/placeholder.png';
 import { advert } from '../propTypes';
 
 function Advert({ name, sale, price, tags, photo }) {
-  console.log(photo);
 
   return (
     <div>
