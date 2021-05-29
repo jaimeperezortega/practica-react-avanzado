@@ -1,5 +1,5 @@
-import {authLoginRequest, advertsLoadedSuccess, authLoginFailure} from './actions';
-import { AUTH_LOGIN_REQUEST, ADVERTS_LOADED_SUCCESS, AUTH_LOGIN_FAILURE } from './types';
+import {authLoginRequest, advertsLoadedSuccess, authLoginFailure, loginAction} from './actions';
+import { AUTH_LOGIN_REQUEST, ADVERTS_LOADED_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGIN_SUCCESS } from './types';
 
 describe('authLoginRequest', ()=>{
     test('should return an AUTH_LOGIN_REQUEST action ', () => {
@@ -26,4 +26,56 @@ describe('authLoginFailure', () => {
         const result = authLoginFailure(error);
         expect(result).toEqual(expectedAction);
     })
+})
+
+//En testing de acciones asincronas necesitamos simular (mockear) los parámetros de entrada. En loginAction() por ejemplo el método login. No llamamos al método real porque no podemos depender de que el backend esté disponible o no. Le vamos a pasar una función que simule el com portamiento de la función login() que resuelva, y una vez resuelve que se despache la acción login
+
+describe('loginAction', () => {
+    //Primero testeamos el flujo de cuando todo vaya correcto
+    //Vamos a simular en primer lugar que cuando llame a la funciómn login resuelva con un promesa 
+    describe('when login api resolves', () => {
+        const credentials = 'credentials';
+        const action = loginAction(credentials);
+        const dispatch = jest.fn() // Esto me crea una función que luego me permite hacer comprobaciones como que si ha sido llamada
+        const getState = () => {};
+        const api = {
+            auth: {login: jest.fn().mockResolvedValue()},
+            };
+        
+        
+        test('should dispatch an AUTH_LOGIN_REQUEST action', () =>{
+            action(dispatch, getState, {api});
+            expect(dispatch).toHaveBeenCalledWith({type: AUTH_LOGIN_REQUEST});
+        });
+
+        test('should call api.auth.login()', () =>{
+            action(dispatch, getState, {api});
+            expect(api.auth.login).toHaveBeenCalledWith(credentials);
+        });
+
+        test('should dispatch an AUTH_LOGIN_SUCCESS action', async () =>{
+            await action(dispatch, getState, {api});
+            expect(dispatch).toHaveBeenNthCalledWith(2,{type: AUTH_LOGIN_SUCCESS});
+        });
+
+
+    describe('when login api throws error', () => {
+        const credentials = 'credentials';
+        const action = loginAction(credentials);
+        const dispatch = jest.fn() // Esto me crea una función que luego me permite hacer comprobaciones como que si ha sido llamada
+        const getState = () => {};
+        const error = 'Unauthorized'
+        
+        
+      
+        test('should dispatch an AUTH_LOGIN_FAILURE action', async () =>{
+            const api = {
+                auth: {login: jest.fn().mockRejectedValue(error)},
+                };
+            await action(dispatch, getState, {api});
+            expect(dispatch).toHaveBeenNthCalledWith(2,{type: AUTH_LOGIN_FAILURE, payload:error, error:true});
+             });
+        })
+    });
+
 })
