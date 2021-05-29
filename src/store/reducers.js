@@ -2,7 +2,7 @@
 import {ADVERTS_CREATED, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_REQUEST, AUTH_LOGOUT, UI_RESET_ERROR, ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, ADVERTS_CREATED_REQUEST, ADVERTS_CREATED_SUCCESS, DELETE_ADVERT_SUCCESS} from './types';
 import {combineReducers} from 'redux';
 
-const initialState = {
+export const initialState = {
     auth: false,
     adverts: {
         loaded: false,
