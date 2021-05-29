@@ -19,10 +19,11 @@ function LoginForm({ onSubmit }) {
   const { email, password, remember } = credentials;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input name="email" value={email} onChange={handleChange} />
+    <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
+      <input className='loginForm-field' name="email" value={email} onChange={handleChange} />
       <input
         type="password"
+        className= 'loginForm-field'
         name="password"
         value={password}
         onChange={handleChange}
