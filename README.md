@@ -90,6 +90,13 @@ Pasos para poder utilizarlo:
 3- Instalamos thunk middleware
 
 
+## TESTING
+
+npm run test
+
+Escribiremos tests unitarios mediante jest.
+
+Excepto en las acciones asíncronas, no tendremos necesidad de mocks de funciones
 
 
 # Getting Started with Create React App
