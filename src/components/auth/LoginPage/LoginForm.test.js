@@ -20,6 +20,17 @@ describe('LoginForm', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
+  test('snapshot testing', () =>{
+    const wrapper = render();
+    expect(wrapper).toMatchSnapshot();
+});
+
+  test('snapshot testing withisLoading', () =>{
+      const wrapper = render();
+      wrapper.setProps({isLoading:true})
+      expect(wrapper).toMatchSnapshot();
+  });
+
   test('should submit credentials', () => {
     const wrapper = render();
    
